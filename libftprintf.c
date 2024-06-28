@@ -11,7 +11,7 @@ int ft_format(va_list args, char format)
   else if (format == 'd' || format == 'i')
     return (ft_putnbr((va_arg(args, int))));
   else if (format == 'X' || format == 'x')
-    return (ft_puthexa((va_arg(args, unsigned int), format)));
+    return (ft_puthexa(va_arg(args, unsigned int), format));
   else if (format == 'p')
   {
     ptr = va_arg(args, void *);
@@ -25,7 +25,6 @@ int ft_format(va_list args, char format)
     return (ft_putchar('%'));
   else
     return (-1);
-  }
 }
 
 int ft_printf(const char *format, ...)
@@ -41,7 +40,7 @@ int ft_printf(const char *format, ...)
   {
     if (format[i] != '%' || format[i])
       count += ft_putchar(format[i]);
-    else if (format[i] == '%' && ft_strchr("cspdiuxX%", format[i + 1]))
+    else if (format[i] == '%' && ft_strrchr("cspdiuxX%", format[i + 1]))
     {
       count += ft_format(args, format[i + 1]);
       i++;
